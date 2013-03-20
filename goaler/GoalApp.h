@@ -2,6 +2,7 @@
 #define GOALAPP_H
 
 #include "GoalContainer.h"
+#include "GoalRenderer.h"
 #include <qwidget.h>
 
 class GoalApp : public QWidget
@@ -11,12 +12,15 @@ class GoalApp : public QWidget
 public:
 	GoalApp(QWidget *parent = 0);
 
+	void setEvent(QPaintEvent*);
+
 protected:
 	void paintEvent(QPaintEvent *event);
 	void nextAnimationFrame();
 
 private:
 	GoalContainer m_pContainer;
+	GoalRenderer m_pGoalRenderer;
 	int frameNo;
 };
 
