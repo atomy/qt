@@ -7,7 +7,7 @@
 class GoalContainer
 {
 public:
-	GoalContainer();
+    GoalContainer() { };
 
 	void add(GoalElement* ele) {
 		m_pGoalElements.push_back(ele);

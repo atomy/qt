@@ -8,12 +8,12 @@ GoalApp::GoalApp(QWidget *parent)
 {	
 	GoalElement* ele = GoalFactory::get();
 	m_pContainer.add(ele);
-	frameNo = 0;
+	frameNo = 0;        
 }
 
-// TODO, http://qt-project.org/doc/qt-4.8/qpainterpath.html
 void GoalApp::paintEvent(QPaintEvent *event)
 {
+        resize(1000, 800);
 	m_pGoalRenderer.setEvent(event);
 	m_pGoalRenderer.setWidget(this);
 
@@ -24,7 +24,7 @@ void GoalApp::paintEvent(QPaintEvent *event)
 	while (cur != end) {
 		cur++;
 		GoalElement* ele = *cur;
-		m_pGoalRenderer.render(ele, frameNo);
+                m_pGoalRenderer.render(ele, frameNo);
 	}
 }
 

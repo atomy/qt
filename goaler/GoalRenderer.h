@@ -14,6 +14,7 @@ public:
 	void render(GoalElement* ele, int);
 	void setEvent(QPaintEvent*);
 	void setWidget(QWidget* widget);
+        void getCoordsForCircle(float center, float radius, float angle, float& x, float& y);
 
 private:
 	QPaintEvent* m_pEvent;

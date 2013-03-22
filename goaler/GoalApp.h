@@ -12,11 +12,10 @@ class GoalApp : public QWidget
 public:
 	GoalApp(QWidget *parent = 0);
 
-	void setEvent(QPaintEvent*);
-
 protected:
 	void paintEvent(QPaintEvent *event);
 	void nextAnimationFrame();
+        void setEvent(QPaintEvent*);
 
 private:
 	GoalContainer m_pContainer;
