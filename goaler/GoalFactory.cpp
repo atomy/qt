@@ -1,6 +1,6 @@
 #include "GoalFactory.h"
 
-GoalElement* GoalFactory::get()
+GoalElement* GoalFactory::get(int level)
 {
-	return new GoalElement();
+    return new GoalElement(level);
 }

@@ -2,29 +2,38 @@
 #include "GoalFactory.h"
 #include <QPainter>
 #include <iostream>
+#include <assert.h>
 
 GoalApp::GoalApp(QWidget *parent)
 	: QWidget(parent)
-{	
-	GoalElement* ele = GoalFactory::get();
-	m_pContainer.add(ele);
+{	    
+    resize(1000, 800);
+    m_pContainer.add(GoalFactory::get(1));
+    m_pContainer.add(GoalFactory::get(2));
+    m_pContainer.add(GoalFactory::get(2));
+    m_pContainer.add(GoalFactory::get(3));
+    m_pContainer.add(GoalFactory::get(3));
+    m_pContainer.add(GoalFactory::get(4));
+    m_pContainer.add(GoalFactory::get(4));
+    m_pContainer.add(GoalFactory::get(4));
 	frameNo = 0;        
 }
 
 void GoalApp::paintEvent(QPaintEvent *event)
 {
-        resize(1000, 800);
 	m_pGoalRenderer.setEvent(event);
 	m_pGoalRenderer.setWidget(this);
 
-	std::vector<GoalElement*>::iterator begin = m_pContainer.begin();
-	std::vector<GoalElement*>::iterator end = m_pContainer.end();
+    std::vector<GoalElement*>::iterator end = m_pContainer.end();
 	std::vector<GoalElement*>::iterator cur = m_pContainer.begin();
-	
-	while (cur != end) {
-		cur++;
-		GoalElement* ele = *cur;
-                m_pGoalRenderer.render(ele, frameNo);
+
+    std::cout << "bla bla" << std::endl;
+
+    while (cur != end) {
+        GoalElement* ele = (*cur);
+        assert(ele != NULL);
+        m_pGoalRenderer.render(ele);
+        cur++;
 	}
 }
 

@@ -1,8 +1,10 @@
+#define _USE_MATH_DEFINES
+
 #include "GoalRenderer.h"
 #include <iostream>
-#include <cmath>
+#include <math.h>
 
-#define _USE_MATH_DEFINES
+#define CIRCLE_RADIUS_PER_LEVEL 100
 
 GoalRenderer::GoalRenderer()
 {
@@ -13,13 +15,58 @@ void GoalRenderer::setEvent(QPaintEvent* event)
 	m_pEvent = event;
 }
 
-void GoalRenderer::render(GoalElement* ele, int frameNo)
+void GoalRenderer::render(GoalElement* ele)
 {
-        QPainter painter(m_pWidget);
-	painter.setRenderHint(QPainter::Antialiasing, true);
+    QPainter painter(m_pWidget);
+    painter.setRenderHint(QPainter::Antialiasing, true);
 
-	int w = m_pWidget->width();
-	int h = m_pWidget->height();
+    _drawElement(painter, ele);
+}
+
+void GoalRenderer::_drawElement(QPainter &painter, GoalElement* ele)
+{
+    float rectX, rectY, rectW, rectH;
+    int w = m_pWidget->width();
+    int h = m_pWidget->height();
+    int m = (w > h ? h : w);
+    int level = ele->getLevel();
+
+    rectX = (m/2) - CIRCLE_RADIUS_PER_LEVEL * level;
+    rectY = (m/2) - CIRCLE_RADIUS_PER_LEVEL * level;
+    rectW = CIRCLE_RADIUS_PER_LEVEL * level * 2;
+    rectH = CIRCLE_RADIUS_PER_LEVEL * level * 2;
+
+    // arc
+    painter.setPen(QPen(QColor(255, 255, 240), 3));
+    QRectF rect(rectX, rectY, rectW, rectH);
+    painter.drawRect(rect); // debug
+    painter.setPen(QPen(QColor(255, 0, 0), 3));
+    painter.drawArc(rect, 16 * ele->getStartAngle(), 16 * ele->getEndAngle());
+}
+
+void GoalRenderer::_drawCircleForLevel(QPainter &painter, int level)
+{
+    float rectX, rectY, rectW, rectH;
+    int w = m_pWidget->width();
+    int h = m_pWidget->height();
+
+    rectX = (w/2) - CIRCLE_RADIUS_PER_LEVEL * level;
+    rectY = (h/2) - CIRCLE_RADIUS_PER_LEVEL * level;
+    rectW = CIRCLE_RADIUS_PER_LEVEL * level * 2;
+    rectH = CIRCLE_RADIUS_PER_LEVEL * level * 2;
+
+    // arc
+    painter.setPen(QPen(QColor(255, 255, 240), 3));
+    QRectF rect(rectX, rectY, rectW, rectH);
+    painter.drawRect(rect);
+    painter.setPen(QPen(QColor(255, 0, 0), 3));
+    painter.drawEllipse(rect);
+}
+
+void GoalRenderer::renderOld(GoalElement* ele)
+{
+    QPainter painter(m_pWidget);
+	painter.setRenderHint(QPainter::Antialiasing, true);
 
         painter.setPen(QPen(QColor(255, 0, 0), 3));
         painter.resetTransform();

@@ -7,7 +7,7 @@
 
 class GoalApp : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
 	GoalApp(QWidget *parent = 0);
@@ -15,7 +15,7 @@ public:
 protected:
 	void paintEvent(QPaintEvent *event);
 	void nextAnimationFrame();
-        void setEvent(QPaintEvent*);
+    void setEvent(QPaintEvent*);
 
 private:
 	GoalContainer m_pContainer;

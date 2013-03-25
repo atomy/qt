@@ -6,7 +6,7 @@
 class GoalFactory
 {
 public:
-	static GoalElement* get();
+    static GoalElement* get(int level);
 };
 
 #endif // GOALFACTORY_H
